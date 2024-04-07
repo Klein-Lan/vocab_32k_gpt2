@@ -1,0 +1,6 @@
+model/
+ckpt/
+data/
+wandb/
+__pycache__/
+*.pyc

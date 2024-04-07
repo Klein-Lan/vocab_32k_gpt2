@@ -1,0 +1,9 @@
+{
+  "architectures": [
+    "vocab_32k_GPT2LMHeadModel"
+  ],
+  "bos_token_id": 1,
+  "eos_token_id": 2,
+  "pad_token_id": 3,
+  "vocab_size":32000
+}
