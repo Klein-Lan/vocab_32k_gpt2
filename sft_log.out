@@ -2275,3 +2275,4 @@ Epoch: 0, Global Step: 19130, Data Step: 95650, Loss: 1.25, Token per second per
 Epoch: 0, Global Step: 19140, Data Step: 95700, Loss: 1.4140625, Token per second per gpu: 20043.303272785077
 Epoch: 0, Global Step: 19150, Data Step: 95750, Loss: 1.171875, Token per second per gpu: 20452.36351598187
 Epoch: 0, Global Step: 19160, Data Step: 95800, Loss: 1.40625, Token per second per gpu: 20079.5033582442
+Epoch: 0, Global Step: 19170, Data Step: 95850, Loss: 1.09375, Token per second per gpu: 20377.91453368296
