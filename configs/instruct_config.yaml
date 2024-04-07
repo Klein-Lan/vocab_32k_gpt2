@@ -10,7 +10,7 @@ data:
   tokenizer_model_path: "configs/tokenizer_models/vocab_32k_gpt2.model"
   split_by_shard: False
 train:
-  train_batch_size: 10
+  train_batch_size: 12
   # 1B token for 1 epoch, 5epoch
   num_training_steps: 1000000
   num_warmup_steps: 500
@@ -19,13 +19,13 @@ train:
   weight_decay: 1.0e-1
   ckpt: "ckpt/vocab_32k_gpt2/"
   train_num_workers_4_dataloader: 16
-  gradient_accumulation_steps: 5
+  gradient_accumulation_steps: 4
   prefetch_factor: 100
   train_and_eval: False
   gradient_checkpointing_enable: False
   use_lora: False
 # global step
-log_interval: 10
+log_interval: 100
 eval_interval: 500
 save_interval: 5000
 work_dir: "ckpt/vocab_32k_gpt2_instruction"

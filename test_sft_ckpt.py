@@ -2,19 +2,19 @@ import logging
 from dataset.validation import val_set_sft
 import torch
 from deepspeed.utils.zero_to_fp32 import get_fp32_state_dict_from_zero_checkpoint
-from models.tokenization_guyu import GuyuTokenizer
-from models.configuration_guyu import GuyuConfig
-from models.modeling_guyu import GuyuForCausalLM
+from models.tokenization_vocab_32k_gpt2 import vocab_32k_gpt2Tokenizer
+from models.configuration_vocab_32k_gpt2 import vocab_32k_gpt2Config
+from models.modeling_vocab_32k_gpt2 import vocab_32k_GPT2LMHeadModel
 
-tokenizer = GuyuTokenizer("configs/tokenizer_models/32k_vocab_guyu_pajama_pj.model", legacy=False)
+tokenizer = vocab_32k_gpt2Tokenizer("configs/tokenizer_models/vocab_32k_gpt2.model", legacy=False)
 # tokenizer = LlamaTokenizer.from_pretrained("data/saved_ckpt/7B_FP16", use_fast=False)
 
 def load_ckpt():
-    model_config = GuyuConfig.from_pretrained("configs/model_configs/1B.json")
+    model_config = vocab_32k_gpt2Config.from_pretrained("configs/model_configs/1B.json")
     #model = GuyuForCausalLM.from_pretrained('./ckpt/1B/',config=model_config)
     # unwrapped_model = accelerator.unwrap_model(model)
-    model = GuyuForCausalLM(config=model_config)
-    state_dict = get_fp32_state_dict_from_zero_checkpoint("ckpt/1B_instruction/")
+    model = vocab_32k_GPT2LMHeadModel(config=model_config)
+    state_dict = get_fp32_state_dict_from_zero_checkpoint("ckpt/vocab_32k_gpt2_instruction/")
     model = model.cpu()
     model.load_state_dict(state_dict)
     # model.load_state_dict(torch.load("data/saved_ckpt/7B/pytorch_model.bin"))
@@ -25,8 +25,8 @@ def load_ckpt():
     return model
 
 def load_pretrained():
-    model_config = GuyuConfig.from_pretrained("configs/model_configs/1B.json")
-    model = GuyuForCausalLM.from_pretrained('./ckpt/1B_instruction',config=model_config)
+    model_config = vocab_32k_gpt2Config.from_pretrained("configs/model_configs/vocab_32k_gpt2.json")
+    model = vocab_32k_GPT2LMHeadModel.from_pretrained('pytorch_model.bin',config=model_config)
     logging.warning("loading complete")
     model.eval()
     model = model.half().cuda()

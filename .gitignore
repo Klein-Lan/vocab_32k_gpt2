@@ -3,4 +3,5 @@ data/
 wandb/
 __pycache__/
 *.pyc
-sft_log.out
+*.log
+*.bin
