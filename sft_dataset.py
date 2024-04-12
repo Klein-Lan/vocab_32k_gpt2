@@ -308,8 +308,8 @@ def construct_dataset(
         )
 
     if(dataset_config["mode"] == "instruct"):
-        full_dataset = full_dataset.map(lambda example: get_sft_labels_gen(example, tokenizer.pad_id))
         full_dataset.set_format(type="torch")
+        full_dataset = full_dataset.map(lambda example: get_sft_labels_gen(example, tokenizer.pad_id))
     else:# add label
         full_dataset = full_dataset.map(get_labels_gen(tokenizer.pad_id))
     # shuffle
