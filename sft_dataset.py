@@ -219,7 +219,7 @@ def construct_dataset(
         num_shards = len(all_data_files)
         all_data_files = all_data_files[: num_shards // world_size * world_size]
     dataset = load_dataset(
-        "json", data_files=all_data_files, split="train", streaming=True
+        "json", data_files=all_data_files, split="train", streaming=False
     )
     # shuffle
     dataset = dataset.shuffle(seed=42)
