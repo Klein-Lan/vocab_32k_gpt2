@@ -1,7 +1,7 @@
 data:
   mode: "instruct"
   data: 
-    mixed: "data/sft_merge.jsonl"
+    mixed: "data/DPO/mix_dpo_data4sft.jsonl"
   pad_to_max: True
   sequence_sample_mode: "truncation"
   concat_multiple_sequence: False
@@ -12,12 +12,12 @@ data:
 train:
   train_batch_size: 12
   # 1B token for 1 epoch, 5epoch
-  num_training_steps: 1000000
+  num_training_steps: 50000
   num_warmup_steps: 500
   initializer_range: 1.0e-2
   lr: 2.0e-4
   weight_decay: 1.0e-1
-  ckpt: "ckpt/vocab_32k_gpt2/"
+  ckpt: "ckpt/vocab_32k_gpt2_instruction/checkpoint_epoch4"
   train_num_workers_4_dataloader: 16
   gradient_accumulation_steps: 5
   prefetch_factor: 100
@@ -28,5 +28,5 @@ train:
 log_interval: 10
 eval_interval: 500
 save_interval: 5000
-work_dir: "ckpt/vocab_32k_gpt2_instruction"
-project_name: "vocab_32k_gpt2 Instruction"
+work_dir: "ckpt/vocab_32k_gpt2_sft4dpo"
+project_name: "vocab_32k_gpt2 sft4dpo"

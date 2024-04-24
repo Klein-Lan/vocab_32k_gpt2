@@ -26,7 +26,7 @@ def load_ckpt():
 
 def load_pretrained():
     model_config = vocab_32k_gpt2Config.from_pretrained("configs/model_configs/vocab_32k_gpt2.json")
-    model = vocab_32k_GPT2LMHeadModel.from_pretrained('pytorch_model.bin',config=model_config)
+    model = vocab_32k_GPT2LMHeadModel.from_pretrained('ckpt/vocab_32k_gpt2_sft4dpo/checkpoint_epoch6',config=model_config)
     logging.warning("loading complete")
     model.eval()
     model = model.half().cuda()

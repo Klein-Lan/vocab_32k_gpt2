@@ -89,20 +89,20 @@ def instruct_transform(batch):
     answer = []
     if batch["input"] != ['']:
         text = prompt_input({'instruction':batch["instruction"][0],'intput':batch["input"][0], 'output':batch["output"][0]})
-        answer.append(batch["output"][0])
+        answer.append(batch["output"][0] + '</s>')
 
     elif batch["history"][0]:
         chats = []
         for u, r in batch["history"][0]:
             chats.append(prompt_no_input_no_history({'instruction':u,'output':r}))
-            answer.append(r)
+            answer.append(r + '</s>')
         chats.append(prompt_no_input_no_history({'instruction':batch["instruction"][0],'output':batch["output"][0]})) #current
-        answer.append(batch["output"][0])
+        answer.append(batch["output"][0] + '</s>')
         text = '[multiturn_sep]'.join(chats)
         
     else:
         text = prompt_no_input_no_history({'instruction':batch["instruction"][0],'output':batch["output"][0]})
-        answer.append(batch["output"][0])
+        answer.append(batch["output"][0] + '</s>')
     
     answer = '[multiturn_sep]'.join(answer)
 
@@ -308,10 +308,10 @@ def construct_dataset(
         )
 
     if(dataset_config["mode"] == "instruct"):
+        full_dataset.set_format(type="torch")
         full_dataset = full_dataset.map(lambda example: get_sft_labels_gen(example, tokenizer.pad_id))
     else:# add label
         full_dataset = full_dataset.map(get_labels_gen(tokenizer.pad_id))
-
     # shuffle
     full_dataset = full_dataset.shuffle(seed=42)
     return full_dataset
@@ -324,7 +324,7 @@ if __name__ == "__main__":
 
     data_config = {
         "mode": "instruct",
-        "data": {"mixed": "data/sharegpt_test.jsonl"},
+        "data": {"mixed": "test.jsonl"},
         "pad_to_max": True,
         "sequence_sample_mode": "truncation",
         "concat_multiple_sequence": False,

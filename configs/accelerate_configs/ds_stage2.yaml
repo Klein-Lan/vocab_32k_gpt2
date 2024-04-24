@@ -1,6 +1,7 @@
 compute_environment: LOCAL_MACHINE
 deepspeed_config:
   deepspeed_multinode_launcher: standard
+  gradient_accumulation_steps: 5
   gradient_clipping: 1.0
   offload_optimizer_device: none
   offload_param_device: none
@@ -13,7 +14,7 @@ main_process_port: 29502
 main_training_function: main
 mixed_precision: bf16
 num_machines: 1
-num_processes: 6
+num_processes: 4
 rdzv_backend: static
 same_network: true
 use_cpu: false

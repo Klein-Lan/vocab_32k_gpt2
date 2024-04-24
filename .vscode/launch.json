@@ -28,5 +28,17 @@
             "console": "integratedTerminal",
             "justMyCode": false
         },
+        {
+            "name": "Python: DPO File",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "accelerate.commands.launch",
+            "args": [
+                "--config_file", "configs/accelerate_configs/ds_stage2.yaml",
+                "dpo.py",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
     ]
 }

@@ -171,8 +171,7 @@ class Trainer:
                 # save state
                 self.accelerator.wait_for_everyone()
                 if self.data_step % self.save_interval == 0 and self.data_step > 0:
-                    self.accelerator.save_state(self.work_dir)
-                
+                    self.accelerator.save_state(os.path.join(self.work_dir, 'checkpoint_epoch{}'.format(self.epoch)))
                 self.data_step += 1
             self.epoch += 1
         wandb.finish()
